@@ -1,0 +1,27 @@
+{
+    "name": "mobiweb/php",
+    "description": "A PHP library for communicating with the MobiWeb SMS REST API.",
+    "keywords": [
+        "sms", "api", "mobiweb", "php", "messaging"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "homepage": "https://api.solutions4mobiles.com/sms-api.html",
+    "authors": [{
+        "name": "MobiWeb Tech Team",
+        "email": "sales@solutions4mobiles.com",
+        "homepage": "https://www.solutions4mobiles.com"
+    }],
+    "require": {
+        "php": ">=7.0.0"
+    },
+    "support": {
+        "issues": "https://github.com/mobiweb/mobiweb-php/issues",
+        "source": "https://github.com/mobiweb/mobiweb-php"
+    },
+    "autoload": {
+        "psr-4": {
+            "MobiWeb\\": "src/MobiWeb/"
+        }
+    }
+}
