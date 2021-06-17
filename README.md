@@ -2,6 +2,7 @@
 
 [![Packagist](https://img.shields.io/packagist/v/mobiweb/sdk.svg)](https://packagist.org/packages/mobiweb/sdk)
 [![Packagist](https://img.shields.io/packagist/dt/mobiweb/sdk.svg)](https://packagist.org/packages/mobiweb/sdk)
+[![License](https://img.shields.io/github/license/mobiweb/imposter.svg?style=flat-square)](https://github.com/mobiweb/mobiweb-php/blob/main/LICENSE)
 
 A PHP library for interfacing with MobiWeb RESTful SMS API.
 
