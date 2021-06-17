@@ -1,8 +1,11 @@
 # mobiweb-php
 
-[![Packagist](https://img.shields.io/packagist/v/mobiweb/sdk.svg)](https://packagist.org/packages/mobiweb/sdk)
-[![Packagist](https://img.shields.io/packagist/dt/mobiweb/sdk.svg)](https://packagist.org/packages/mobiweb/sdk)
-[![License](https://img.shields.io/github/license/mobiweb/imposter.svg?style=flat-square)](https://github.com/mobiweb/mobiweb-php/blob/main/LICENSE)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/mobiweb/mobiweb-php)
+![Packagist Downloads](https://img.shields.io/packagist/dt/mobiweb/sdk)
+![GitHub all releases](https://img.shields.io/github/downloads/mobiweb/mobiweb-php/total)
+![GitHub repo size](https://img.shields.io/github/repo-size/mobiweb/mobiweb-php)
+![GitHub top language](https://img.shields.io/github/languages/top/mobiweb/mobiweb-php)
+![GitHub](https://img.shields.io/github/license/mobiweb/mobiweb-php)
 
 A PHP library for interfacing with MobiWeb RESTful SMS API.
 
