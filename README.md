@@ -1,8 +1,8 @@
 # mobiweb-php
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/mobiweb/mobiweb-php)
-![Packagist Downloads](https://img.shields.io/packagist/dt/mobiweb/sdk)
-![GitHub all releases](https://img.shields.io/github/downloads/mobiweb/mobiweb-php/total)
+![Packagist Downloads](https://img.shields.io/packagist/dt/mobiweb/sdk?label=Packagist)
+![GitHub all releases](https://img.shields.io/github/downloads/mobiweb/mobiweb-php/total?label=GitHub)
 ![GitHub repo size](https://img.shields.io/github/repo-size/mobiweb/mobiweb-php)
 ![GitHub top language](https://img.shields.io/github/languages/top/mobiweb/mobiweb-php)
 ![GitHub](https://img.shields.io/github/license/mobiweb/mobiweb-php)
