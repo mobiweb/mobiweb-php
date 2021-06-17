@@ -1,6 +1,8 @@
 {
     "name": "mobiweb/sdk",
     "description": "A PHP library for communicating with the MobiWeb SMS REST API.",
+    "version": "1.0.0-RC1",
+    "minimum-stability": "stable",
     "keywords": [
         "sms", "api", "mobiweb", "php", "messaging"
     ],
