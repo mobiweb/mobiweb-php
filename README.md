@@ -24,7 +24,7 @@ This library supports the following PHP implementations:
 ## Installation
 
 * Download Source 
-* Composer [`mobiweb/sdk`](https://packagist.org/packages/mobiweb/sdk)
+* Composer require [`mobiweb/sdk`](https://packagist.org/packages/mobiweb/sdk)
 
 ```
 composer require mobiweb/sdk
