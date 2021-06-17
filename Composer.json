@@ -1,5 +1,5 @@
 {
-    "name": "mobiweb/php",
+    "name": "mobiweb/sdk",
     "description": "A PHP library for communicating with the MobiWeb SMS REST API.",
     "keywords": [
         "sms", "api", "mobiweb", "php", "messaging"
