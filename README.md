@@ -222,6 +222,40 @@ print_r($message);
 ?>
 ```
 
+### Get account balance
+
+```php
+<?php
+
+//Your account username and password
+$username = "";
+$password = "";
+
+$client = new APIClient($username, $password);
+
+//Get account balance and print it
+echo $client->getBalance();
+
+?>
+```
+
+### Get account pricing
+
+```php
+<?php
+
+//Your account username and password
+$username = "";
+$password = "";
+
+$client = new APIClient($username, $password);
+
+//Get account pricing and print it
+print_r($client->getPricing());
+
+?>
+```
+
 ### Receive delivery reports
 
 Delivery reports are forwarded automatically, to the user system / platform. When an SMS delivery report is received by our SMS API Platform, the DLR information is immediately forwarded to your specified DLR Callback URL via a POST request. You can setup your DLR Callback URL in the [web portal][webpanel].
