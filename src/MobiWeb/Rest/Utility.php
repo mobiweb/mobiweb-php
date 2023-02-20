@@ -11,7 +11,8 @@ class Utility {
 
     const BALANCE_ENDPOINT = "/sms/mt/v2/balance";
     const BALANCE_METHOD = "GET";
-    const PRICING_ENDPOINT = "/sms/mt/v2/pricing";
+    const PRICING_SMS_ENDPOINT = "/sms/mt/v2/pricing";
+    const PRICING_HLR_ENDPOINT = "/hlr/v2/pricing";
     const PRICING_METHOD = "GET";
 
 
@@ -42,7 +43,7 @@ class Utility {
 
     }
 
-    public static function getPricing(Auth $auth = null): array{
+    public static function getPricing(Auth $auth = null, string $service): array{
 
         if (!$auth) {
             throw new \Exception("Cannot get pricing without authentication");
@@ -57,7 +58,17 @@ class Utility {
         $http = new HttpClient();
         $headers = array();
         $headers["Authorization"] = "Bearer " . $access_token;
-        $executedRequest=$http->request(APIClient::API_ENDPOINT . Utility::PRICING_ENDPOINT, Utility::PRICING_METHOD, $headers);
+
+        switch($service){
+            case APIClient::SMS:
+                $pricing_endpoint = Utility::PRICING_SMS_ENDPOINT;
+                break;
+            case APIClient::HLR:
+                $pricing_endpoint = Utility::PRICING_HLR_ENDPOINT;
+                break;
+        }
+
+        $executedRequest=$http->request(APIClient::API_ENDPOINT . $pricing_endpoint, Utility::PRICING_METHOD, $headers);
 
         if($executedRequest->response->body->status_code != HttpClient::HTTP_OK){
             $apiError = new APIError($executedRequest->response->body->status_code, $executedRequest->response->body->status_message, $executedRequest->response->body->errors);
@@ -71,10 +82,14 @@ class Utility {
 
         $arr_pricing=array();
 
-        foreach ($pricing as $key => $value)$arr_pricing[$value->id] = array("countryname" => $value->operatorname, "operator" => $value->operatorname, "mcc" => $value->mcc, "mnc" => $value->mnc, "price" => $value->price, "currency" => $currency);
-
-
-
+        switch($service){
+            case APIClient::SMS:
+                foreach ($pricing as $key => $value)$arr_pricing[$value->id] = array("countryname" => $value->operatorname, "operator" => $value->operatorname, "mcc" => $value->mcc, "mnc" => $value->mnc, "price" => $value->price, "currency" => $currency);
+                break;
+            case APIClient::HLR:
+                foreach ($pricing as $key => $value)$arr_pricing[$value->id] = array("countryname" => $value->countryname, "countrycode" => $value->countrycode, "countryiso" => $value->countryiso, "price" => $value->price, "currency" => $currency);
+                break;
+        }
         return $arr_pricing;
 
     }

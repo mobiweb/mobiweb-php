@@ -44,12 +44,21 @@ class Message {
 
             $body[] = $obj;
         }
+
         $executedRequest=$http->request(APIClient::API_ENDPOINT . Message::SEND_ENDPOINT, Message::SEND_METHOD, $headers, $body);
 
-        if($executedRequest->response->body->status_code != HttpClient::HTTP_OK){
-            $apiError = new APIError($executedRequest->response->body->status_code, $executedRequest->response->body->status_message, $executedRequest->response->body->errors);
-            throw new \Exception($apiError->print());
-            return false;
+        $errors = array();
+        $responseElements=$executedRequest->response->body->payload;
+        foreach($responseElements as $responseElement){
+            if($responseElement->status == "error"){
+                $errors[] = $responseElement->error;
+            }
+        }
+
+        if(count($errors) > 0){
+            $apiError = new APIError($executedRequest->response->body->status_code, $executedRequest->response->body->status_message, $errors);
+            $apiError->print();
+
         }
 
         return array($executedRequest->response->body->payload);

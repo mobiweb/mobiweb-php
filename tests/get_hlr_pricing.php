@@ -10,7 +10,7 @@ $password = "";
 
 $client = new APIClient($username, $password);
 
-//Get account SMS pricing and print it
-print_r($client->getPricing(APIClient::SMS));
+//Get account HLR pricing and print it
+print_r($client->getPricing(APIClient::HLR));
 
 ?>

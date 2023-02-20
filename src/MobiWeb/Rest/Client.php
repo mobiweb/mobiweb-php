@@ -10,6 +10,8 @@ class Client {
 
     protected $auth;
     const API_ENDPOINT = "https://sms.solutions4mobiles.com/apis"; 
+    const HLR = "hlr"; 
+    const SMS = "sms";
 
 
     public function __construct(string $username = null, string $password = null){
@@ -35,15 +37,25 @@ class Client {
 
     }
 
+    public function lookup(string $mobile): array{
+
+        if (!$mobile) {
+            throw new \Exception("Mobile number is required to make a HLR Lookup");
+        }
+
+        return HLR::lookup($this->auth, $mobile);
+
+    }
+
     public function getBalance(): float{
 
         return Util::getBalance($this->auth);
 
     }
 
-    public function getPricing(): array{
+    public function getPricing(string $service=Client::SMS): array{
 
-        return Util::getPricing($this->auth);
+        return Util::getPricing($this->auth,$service);
 
     }
 

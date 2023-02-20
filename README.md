@@ -7,7 +7,7 @@
 ![GitHub top language](https://img.shields.io/github/languages/top/mobiweb/mobiweb-php)
 ![GitHub](https://img.shields.io/github/license/mobiweb/mobiweb-php)
 
-A PHP library for interfacing with MobiWeb RESTful SMS API.
+A PHP library for interfacing with MobiWeb RESTful SMS and HLR API.
 
 ## Documentation
 
@@ -28,7 +28,7 @@ This library supports the following PHP implementations:
 ## Installation
 
 * Download Source 
-* Composer require [`mobiweb/sdk`](https://packagist.org/packages/mobiweb/sdk)
+* composer require [`mobiweb/sdk`](https://packagist.org/packages/mobiweb/sdk)
 
 ```
 composer require mobiweb/sdk
@@ -36,14 +36,16 @@ composer require mobiweb/sdk
 
 ## API Account
 
-With MobiWeb SMS API you can send SMS messages to 7+ billion subscribers of 1000+ Mobile Operators in 200+ countries.
+* With MobiWeb SMS API you can send SMS messages to 7+ billion subscribers of 1000+ Mobile Operators in 200+ countries.
+* With MobiWeb HLR API you can maximize the performance of your campaigns and your business communication. Validate mobile number databases, remove invalid entries and receive correct portability information, identifying the operators that the mobile numbers belong to.
 
-The SMS API is based on REST. It uses built-in HTTP authentication and HTTP status codes. All data exchange is done in JSON format.
+The APIs are based on REST with built-in HTTP authentication and HTTP status codes. All data exchange is done in JSON format.
 
-To test the SMS API, you will need a valid API account. If you don't have one yet, [click here][apiaccount] to register for a FREE account.
+To test the APIs, you will need a valid API account. If you don't have one yet, [click here][apiaccount] to register for a FREE account.
 
 ## Examples
 
+### SMS API
 ### Send a single SMS
 
 ```php
@@ -231,7 +233,7 @@ print_r($message);
 $username = "";
 $password = "";
 
-$client = new APIClient($username, $password);
+$client = new MobiWeb\Rest\Client($username, $password);
 
 //Get account balance and print it
 echo $client->getBalance();
@@ -248,10 +250,10 @@ echo $client->getBalance();
 $username = "";
 $password = "";
 
-$client = new APIClient($username, $password);
+$client = new MobiWeb\Rest\Client($username, $password);
 
 //Get account pricing and print it
-print_r($client->getPricing());
+print_r($client->getPricing(MobiWeb\Rest\Client::SMS));
 
 ?>
 ```
@@ -304,6 +306,63 @@ print_r($input);
 header('HTTP/1.1 200 OK', true, 200);
 // or error
 // header('HTTP/1.1 500 Internal Server Error', true, 500);
+
+?>
+```
+
+### HLR API
+### Lookup a mobile number
+
+```php
+<?
+
+//Your account username and password
+$username = "";
+$password = "";
+
+$client = new MobiWeb\Rest\Client($username, $password);
+
+//HLR lookup for a mobile number
+$lookup = $client->lookup(
+  "44xxxxxxxxxx" //The mobile number in international E.164 format.
+  );
+
+//Print the HLR lookup result
+print_r($lookup);
+
+?>
+```
+
+### Get account balance
+
+```php
+<?php
+
+//Your account username and password
+$username = "";
+$password = "";
+
+$client = new MobiWeb\Rest\Client($username, $password);
+
+//Get account balance and print it
+echo $client->getBalance();
+
+?>
+```
+
+### Get account pricing
+
+```php
+<?php
+
+//Your account username and password
+$username = "";
+$password = "";
+
+$client = new MobiWeb\Rest\Client($username, $password);
+
+//Get account HLR pricing and print it
+print_r($client->getPricing(MobiWeb\Rest\Client::HLR));
 
 ?>
 ```

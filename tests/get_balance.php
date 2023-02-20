@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__ . '/../vendor/autoload.php'; // Loads MobiWeb package
+require __DIR__ . '/../../../autoload.php'; // Loads MobiWeb package
 
 use MobiWeb\Rest\Client as APIClient;
 

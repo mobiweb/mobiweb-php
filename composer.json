@@ -1,13 +1,13 @@
 {
     "name": "mobiweb/sdk",
-    "description": "A PHP library for communicating with the MobiWeb SMS REST API.",
+    "description": "2.0.1 PHP library for communicating with the MobiWeb REST APIs.",
     "minimum-stability": "stable",
     "keywords": [
-        "sms", "api", "mobiweb", "php", "messaging"
+        "sms", "api", "mobiweb", "php", "messaging", "hlr", "hlr lookup", "mobile lookup", "mobile number lookup"
     ],
     "type": "library",
     "license": "MIT",
-    "homepage": "https://api.solutions4mobiles.com/sms-api.html",
+    "homepage": "https://api.solutions4mobiles.com/index.html",
     "authors": [{
         "name": "MobiWeb Tech Team",
         "email": "sales@solutions4mobiles.com",

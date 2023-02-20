@@ -10,7 +10,12 @@ $password = "";
 
 $client = new APIClient($username, $password);
 
-//Get account SMS pricing and print it
-print_r($client->getPricing(APIClient::SMS));
+//HLR lookup for a mobile number
+$lookup = $client->lookup(
+  "44xxxxxxxxxx" //The mobile number in international E.164 format.
+  );
+
+//Print the HLR lookup result
+print_r($lookup);
 
 ?>
