@@ -35,12 +35,12 @@ class Message {
             $obj->to = $messageGroup["to"];
             $obj->from = $messageGroup["from"];
             $obj->message = $messageGroup["message"];
-            if($messageGroup["options"]["track_url"])$obj->track_url = $messageGroup["options"]["track_url"];
-            if($messageGroup["options"]["receive_dlr"])$obj->receive_dlr = $messageGroup["options"]["receive_dlr"];
-            if($messageGroup["options"]["message_type"])$obj->message_type = $messageGroup["options"]["message_type"];
-            if($messageGroup["options"]["reference_code"])$obj->reference_code = $messageGroup["options"]["reference_code"];
-            if($messageGroup["options"]["schedule_date"])$obj->schedule_date = $messageGroup["options"]["schedule_date"];
-            if($messageGroup["options"]["expire_date"])$obj->expire_date = $messageGroup["options"]["expire_date"];
+            if(isset($messageGroup["options"]["track_url"]))$obj->track_url = $messageGroup["options"]["track_url"];
+            if(isset($messageGroup["options"]["receive_dlr"]))$obj->receive_dlr = $messageGroup["options"]["receive_dlr"];
+            if(isset($messageGroup["options"]["message_type"]))$obj->message_type = $messageGroup["options"]["message_type"];
+            if(isset($messageGroup["options"]["reference_code"]))$obj->reference_code = $messageGroup["options"]["reference_code"];
+            if(isset($messageGroup["options"]["schedule_date"]))$obj->schedule_date = $messageGroup["options"]["schedule_date"];
+            if(isset($messageGroup["options"]["expire_date"]))$obj->expire_date = $messageGroup["options"]["expire_date"];
 
             $body[] = $obj;
         }
