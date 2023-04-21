@@ -19,11 +19,7 @@ MobiWeb RESTful APIs can be found [here][apidocumentation].
 
 This library supports the following PHP implementations:
 
-* PHP 7.0
-* PHP 7.2
-* PHP 7.3
-* PHP 7.4
-* PHP 8.0
+* From PHP 7.0 up to PHP 8.2
 
 ## Installation
 
