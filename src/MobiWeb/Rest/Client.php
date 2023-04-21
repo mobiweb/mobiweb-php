@@ -4,6 +4,8 @@ namespace MobiWeb\Rest;
 
 use MobiWeb\Rest\Authentication as Auth;
 use MobiWeb\Rest\Message;
+use MobiWeb\Rest\HLR;
+use MobiWeb\Rest\OTP;
 use MobiWeb\Rest\Utility as Util;
 
 class Client {
@@ -12,6 +14,7 @@ class Client {
     const API_ENDPOINT = "https://sms.solutions4mobiles.com/apis"; 
     const HLR = "hlr"; 
     const SMS = "sms";
+    const OTP = "otp";
 
 
     public function __construct(string $username = null, string $password = null){
@@ -34,6 +37,26 @@ class Client {
         }
 
         return Message::broadcast($this->auth, $args);
+
+    }
+
+    public function generate(string $mobile, string $sender, string $message, int $validity){
+
+        if (!$mobile) {
+            throw new \Exception("Mobile number is required to generate an OTP");
+        }
+
+        return OTP::generate($this->auth, $mobile, $sender, $message, $validity);
+
+    }
+
+    public function validate(string $id, string $mobile, string $pin): bool{
+
+        if (!$mobile || !$id || !$pin) {
+            throw new \Exception("Mobile number, OTP pin and OTP ID is required to validate an OTP");
+        }
+
+        return OTP::validate($this->auth, $id, $mobile, $pin);
 
     }
 

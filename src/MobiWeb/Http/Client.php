@@ -7,6 +7,7 @@ class Client {
     const GET = "GET";
     const POST = "POST";
     const HTTP_OK = "200";
+    const HTTP_CREATED = "201";
     const HTTP_BAD = "400";
     const HTTP_UNAUTH = "401";
     const HTTP_NOTFOUND = "404";

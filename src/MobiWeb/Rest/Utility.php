@@ -13,6 +13,7 @@ class Utility {
     const BALANCE_METHOD = "GET";
     const PRICING_SMS_ENDPOINT = "/sms/mt/v2/pricing";
     const PRICING_HLR_ENDPOINT = "/hlr/v2/pricing";
+    const PRICING_OTP_ENDPOINT = "/otp/v3/pricing";
     const PRICING_METHOD = "GET";
 
 
@@ -66,6 +67,9 @@ class Utility {
             case APIClient::HLR:
                 $pricing_endpoint = Utility::PRICING_HLR_ENDPOINT;
                 break;
+            case APIClient::OTP:
+                $pricing_endpoint = Utility::PRICING_OTP_ENDPOINT;
+                break;
         }
 
         $executedRequest=$http->request(APIClient::API_ENDPOINT . $pricing_endpoint, Utility::PRICING_METHOD, $headers);
@@ -84,6 +88,7 @@ class Utility {
 
         switch($service){
             case APIClient::SMS:
+            case APIClient::OTP:
                 foreach ($pricing as $key => $value)$arr_pricing[$value->id] = array("countryname" => $value->operatorname, "operator" => $value->operatorname, "mcc" => $value->mcc, "mnc" => $value->mnc, "price" => $value->price, "currency" => $currency);
                 break;
             case APIClient::HLR:
