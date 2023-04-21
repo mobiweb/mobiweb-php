@@ -7,11 +7,11 @@
 ![GitHub top language](https://img.shields.io/github/languages/top/mobiweb/mobiweb-php)
 ![GitHub](https://img.shields.io/github/license/mobiweb/mobiweb-php)
 
-A PHP library for interfacing with MobiWeb RESTful SMS and HLR API.
+A PHP library for interfacing with MobiWeb RESTful SMS, HLR and OTP APIs.
 
 ## Documentation
 
-MobiWeb RESTful API can be found [here][apidocumentation].
+MobiWeb RESTful APIs can be found [here][apidocumentation].
 
 ## Versions
 
@@ -38,6 +38,7 @@ composer require mobiweb/sdk
 
 * With MobiWeb SMS API you can send SMS messages to 7+ billion subscribers of 1000+ Mobile Operators in 200+ countries.
 * With MobiWeb HLR API you can maximize the performance of your campaigns and your business communication. Validate mobile number databases, remove invalid entries and receive correct portability information, identifying the operators that the mobile numbers belong to.
+* With MobiWeb OTP API you can provide additional security to simple username and password authentication, authenticated transactions, accurately verify users, reduce fraud and reduce two-factor authentication cost (no hardware tokens required).
 
 The APIs are based on REST with built-in HTTP authentication and HTTP status codes. All data exchange is done in JSON format.
 
