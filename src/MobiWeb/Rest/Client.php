@@ -23,7 +23,7 @@ class Client {
             throw new \Exception("Username and Password are required to create a Client");
         }
 
-        $this->auth = new Auth($username,$password);
+        $this->auth = new Auth($username,$password,Client::API_ENDPOINT);
         if(!$this->auth->authenticate()){
             throw new \Exception("Authentication failed");
         }

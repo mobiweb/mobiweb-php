@@ -25,6 +25,8 @@ class Message {
             return false;
         }
 
+        $endpoint = $auth->getEndPoint();
+
         $http = new HttpClient();
         $headers = array();
         $headers["Authorization"] = "Bearer " . $access_token;
@@ -45,7 +47,7 @@ class Message {
             $body[] = $obj;
         }
 
-        $executedRequest=$http->request(APIClient::API_ENDPOINT . Message::SEND_ENDPOINT, Message::SEND_METHOD, $headers, $body);
+        $executedRequest=$http->request($endpoint . Message::SEND_ENDPOINT, Message::SEND_METHOD, $headers, $body);
 
         $errors = array();
         $responseElements=$executedRequest->response->body->payload;

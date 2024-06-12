@@ -1,9 +1,9 @@
 {
     "name": "mobiweb/sdk",
-    "description": "3.0.1 PHP library for communicating with the MobiWeb REST APIs.",
+    "description": "4.0.0 PHP library for communicating with the MobiWeb REST APIs.",
     "minimum-stability": "stable",
     "keywords": [
-        "sms", "api", "mobiweb", "php", "messaging", "hlr", "hlr lookup", "mobile lookup", "mobile number lookup", "OTP", "one time password", "2FA", "two factor authentication"
+        "sms", "api", "mobiweb", "php", "messaging", "hlr", "hlr lookup", "mobile lookup", "mobile number lookup", "OTP", "one time password", "2FA", "two factor authentication", "smpp", "asynch"
     ],
     "type": "library",
     "license": "MIT",

@@ -2,7 +2,6 @@
 
 namespace MobiWeb\Rest;
 
-use MobiWeb\Rest\Client as APIClient;
 use MobiWeb\Http\Client as HttpClient;
 use MobiWeb\Rest\Error as APIError;
 
@@ -22,9 +21,10 @@ class Authentication {
     protected $access_token;
     protected $refresh_token;
     protected $timestamp;
+    protected $endpoint;
 
 
-    public function __construct(string $username = null, string $password = null){
+    public function __construct(string $username = null, string $password = null, string $endpoint){
 
         if (!$username || !$password) {
             throw new \Exception("Username and Password are required to authenticate");
@@ -32,8 +32,7 @@ class Authentication {
 
         $this->username=$username;
         $this->password=$password;
-        $this->httpClient=new HttpClient();
-
+        $this->endpoint=$endpoint;
     }
 
     public function authenticate() :bool{
@@ -44,7 +43,7 @@ class Authentication {
         $body->username = $this->username;
         $body->password = $this->password;
         $body->type = Authentication::TYPE_ACCESS;
-        $executedRequest=$http->request(APIClient::API_ENDPOINT . Authentication::AUTH_ENDPOINT, Authentication::AUTH_METHOD, $headers, $body);
+        $executedRequest=$http->request($this->endpoint . Authentication::AUTH_ENDPOINT, Authentication::AUTH_METHOD, $headers, $body);
 
         if($executedRequest->response->body->status_code != HttpClient::HTTP_OK){
             $apiError = new APIError($executedRequest->response->body->status_code, $executedRequest->response->body->status_message, $executedRequest->response->body->errors);
@@ -71,7 +70,7 @@ class Authentication {
         $body = new \stdClass();
         $body->refresh_token = $this->refresh_token;
         $body->type = Authentication::TYPE_REFRESH;
-        $executedRequest=$http->request(APIClient::API_ENDPOINT . Authentication::AUTH_ENDPOINT, Authentication::AUTH_METHOD, $headers, $body);
+        $executedRequest=$http->request($this->endpoint . Authentication::AUTH_ENDPOINT, Authentication::AUTH_METHOD, $headers, $body);
 
         if($executedRequest->response->body->status_code != HttpClient::HTTP_OK){
             $apiError = new APIError($executedRequest->response->body->status_code, $executedRequest->response->body->status_message, $executedRequest->response->body->errors);
@@ -93,6 +92,12 @@ class Authentication {
         }
 
         return $this->access_token;
+
+    }
+
+    public function getEndPoint(): string{
+
+        return $this->endpoint;
 
     }
 

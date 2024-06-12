@@ -3,7 +3,6 @@
 namespace MobiWeb\Rest;
 
 use MobiWeb\Rest\Authentication as Auth;
-use MobiWeb\Rest\Client as APIClient;
 use MobiWeb\Http\Client as HttpClient;
 use MobiWeb\Rest\Error as APIError;
 
@@ -16,6 +15,9 @@ class Utility {
     const PRICING_OTP_ENDPOINT = "/otp/v3/pricing";
     const PRICING_METHOD = "GET";
 
+    const HLR = "hlr"; 
+    const SMS = "sms";
+    const OTP = "otp";
 
     public static function getBalance(Auth $auth = null): float{
 
@@ -29,10 +31,12 @@ class Utility {
             return false;
         }
 
+        $endpoint = $auth->getEndPoint();
+
         $http = new HttpClient();
         $headers = array();
         $headers["Authorization"] = "Bearer " . $access_token;
-        $executedRequest=$http->request(APIClient::API_ENDPOINT . Utility::BALANCE_ENDPOINT, Utility::BALANCE_METHOD, $headers);
+        $executedRequest=$http->request($endpoint . Utility::BALANCE_ENDPOINT, Utility::BALANCE_METHOD, $headers);
 
         if($executedRequest->response->body->status_code != HttpClient::HTTP_OK){
             $apiError = new APIError($executedRequest->response->body->status_code, $executedRequest->response->body->status_message, $executedRequest->response->body->errors);
@@ -56,23 +60,25 @@ class Utility {
             return false;
         }
 
+        $endpoint = $auth->getEndPoint();
+
         $http = new HttpClient();
         $headers = array();
         $headers["Authorization"] = "Bearer " . $access_token;
 
         switch($service){
-            case APIClient::SMS:
+            case Utility::SMS:
                 $pricing_endpoint = Utility::PRICING_SMS_ENDPOINT;
                 break;
-            case APIClient::HLR:
+            case Utility::HLR:
                 $pricing_endpoint = Utility::PRICING_HLR_ENDPOINT;
                 break;
-            case APIClient::OTP:
+            case Utility::OTP:
                 $pricing_endpoint = Utility::PRICING_OTP_ENDPOINT;
                 break;
         }
 
-        $executedRequest=$http->request(APIClient::API_ENDPOINT . $pricing_endpoint, Utility::PRICING_METHOD, $headers);
+        $executedRequest=$http->request($endpoint . $pricing_endpoint, Utility::PRICING_METHOD, $headers);
 
         if($executedRequest->response->body->status_code != HttpClient::HTTP_OK){
             $apiError = new APIError($executedRequest->response->body->status_code, $executedRequest->response->body->status_message, $executedRequest->response->body->errors);
@@ -87,11 +93,11 @@ class Utility {
         $arr_pricing=array();
 
         switch($service){
-            case APIClient::SMS:
-            case APIClient::OTP:
+            case Utility::SMS:
+            case Utility::OTP:
                 foreach ($pricing as $key => $value)$arr_pricing[$value->id] = array("countryname" => $value->operatorname, "operator" => $value->operatorname, "mcc" => $value->mcc, "mnc" => $value->mnc, "price" => $value->price, "currency" => $currency);
                 break;
-            case APIClient::HLR:
+            case Utility::HLR:
                 foreach ($pricing as $key => $value)$arr_pricing[$value->id] = array("countryname" => $value->countryname, "countrycode" => $value->countrycode, "countryiso" => $value->countryiso, "price" => $value->price, "currency" => $currency);
                 break;
         }
