@@ -35,10 +35,13 @@ composer require mobiweb/sdk
 * With MobiWeb SMS API you can send SMS messages to 7+ billion subscribers of 1000+ Mobile Operators in 200+ countries.
 * With MobiWeb HLR API you can maximize the performance of your campaigns and your business communication. Validate mobile number databases, remove invalid entries and receive correct portability information, identifying the operators that the mobile numbers belong to.
 * With MobiWeb OTP API you can provide additional security to simple username and password authentication, authenticated transactions, accurately verify users, reduce fraud and reduce two-factor authentication cost (no hardware tokens required).
+* With MobiWeb Asynchronous SMS API you can send SMS messages with high throughput, utilizing SMPP protocol.
 
 The APIs are based on REST with built-in HTTP authentication and HTTP status codes. All data exchange is done in JSON format.
 
-To test the APIs, you will need a valid API account. If you don't have one yet, [click here][apiaccount] to register for a FREE account.
+To test the SMS, OTP and HLR APIs, you will need a valid API account. If you don't have one yet, [click here][apiaccount] to register for a FREE account.
+
+To test the Asynch SMS API, you will need a valid SMPP API account. If you don't have one yet, please contact us [here][smppaccount] to register for a FREE test account.
 
 ## Examples
 
@@ -448,6 +451,160 @@ print_r($client->getPricing(MobiWeb\Rest\Client::OTP));
 ?>
 ```
 
+### Asynchronous SMS API
+### Send a single SMS
+
+```php
+<?php
+
+//Your account username and password
+$username = "";
+$password = "";
+
+$client = new MobiWeb\Rest\AsynchClient($username, $password);
+
+//Submit message
+$message = $client->broadcast(
+    [[
+      "from" => "HelloWorld", //The sender displayed upon the SMS arrival. Can be composed of 2-11 alphanumeric characters (A-z,0-9, ,-,.) or 14 numeric characters (0-9). Special characters are not allowed.
+      "to" => ["44xxxxxxxxxx"], //The full international number(s) of the recipient(s) in international E.164 format https://en.wikipedia.org/wiki/E.164.
+      "message" => "Hello from MobiWeb!" //The text of the SMS message. If all characters in the message belong to the 3GPP GSM 7-bit GSM 03.38 ASCII character table https://en.wikipedia.org/wiki/GSM_03.38#GSM_7-bit_default_alphabet_and_extension_table_of_3GPP_TS_23.038_/_GSM_03.38, you can send up to 160 characters in a single SMS. You can send longer messages automatically by setting message parameter with your preffered text. In long SMS (multi-part SMS), each SMS part can be up to 153 characters. Each part costs as 1 SMS. If one or more characters in the message belong to the 16-bit Unicode / UCS-2 character table https://en.wikipedia.org/wiki/UTF-16, because of the increased memory requirement for each character, you can send up to 70 characters in a single SMS. In long SMS (multi-part SMS), each SMS part can be up to 67 characters. Each part costs as 1 SMS.
+
+    ]]
+  );
+
+//Print message
+print_r($message);
+
+?>
+```
+
+### Send multiple SMS
+
+```php
+<?php
+
+//Your account username and password
+$username = "";
+$password = "";
+
+$client = new MobiWeb\Rest\AsynchClient($username, $password);
+
+$message = $client->broadcast(
+    [[
+        "from" => "HelloEx1", //The sender displayed upon the SMS arrival. Can be composed of 2-11 alphanumeric characters (A-z,0-9, ,-,.) or 14 numeric characters (0-9). Special characters are not allowed.
+        "to" => ["44xxxxxxxxxx"], //The full international number(s) of the recipient(s) in international E.164 format https://en.wikipedia.org/wiki/E.164.
+      "message" => "Hello from MobiWeb 1!" //The text of the SMS message. If all characters in the message belong to the 3GPP GSM 7-bit GSM 03.38 ASCII character table https://en.wikipedia.org/wiki/GSM_03.38#GSM_7-bit_default_alphabet_and_extension_table_of_3GPP_TS_23.038_/_GSM_03.38, you can send up to 160 characters in a single SMS. You can send longer messages automatically by setting message parameter with your preffered text. In long SMS (multi-part SMS), each SMS part can be up to 153 characters. Each part costs as 1 SMS. If one or more characters in the message belong to the 16-bit Unicode / UCS-2 character table https://en.wikipedia.org/wiki/UTF-16, because of the increased memory requirement for each character, you can send up to 70 characters in a single SMS. In long SMS (multi-part SMS), each SMS part can be up to 67 characters. Each part costs as 1 SMS.
+
+    ],
+    [
+        "from" => "HelloEx2",
+        "to" => ["44xxxxxxxxxx"],
+        "message" => "Hello from MobiWeb 2!"
+
+    ]]
+  );
+
+//Print message
+print_r($message);
+
+?>
+```
+
+### Send SMS with all options
+
+```php
+<?php
+
+//Your account username and password
+$username = "";
+$password = "";
+
+$client = new MobiWeb\Rest\AsynchClient($username, $password);
+
+$message = $client->broadcast(
+    [[
+      "from" => "HelloWorld", //The sender displayed upon the SMS arrival. Can be composed of 2-11 alphanumeric characters (A-z,0-9, ,-,.) or 14 numeric characters (0-9). Special characters are not allowed.
+      "to" => ["44xxxxxxxxxx"], //The full international number(s) of the recipient(s) in international E.164 format https://en.wikipedia.org/wiki/E.164.
+      "message" => "Hello from MobiWeb!", //The text of the SMS message. If all characters in the message belong to the 3GPP GSM 7-bit GSM 03.38 ASCII character table https://en.wikipedia.org/wiki/GSM_03.38#GSM_7-bit_default_alphabet_and_extension_table_of_3GPP_TS_23.038_/_GSM_03.38, you can send up to 160 characters in a single SMS. You can send longer messages automatically by setting message parameter with your preffered text. In long SMS (multi-part SMS), each SMS part can be up to 153 characters. Each part costs as 1 SMS. If one or more characters in the message belong to the 16-bit Unicode / UCS-2 character table https://en.wikipedia.org/wiki/UTF-16, because of the increased memory requirement for each character, you can send up to 70 characters in a single SMS. In long SMS (multi-part SMS), each SMS part can be up to 67 characters. Each part costs as 1 SMS.
+
+      "options" => [
+        "receive_dlr" => "1", //Set this parameter to ‘1’ for requesting delivery report for this SMS. Refer to receive Delivery Reports section for more information . https://api.solutions4mobiles.com/sms-api.html#receive_delivery_reports
+        "message_type" => "sms", //The type of the SMS message.
+        "reference_code" => "ABCD1234", //Set this parameter to your preferred reference id / custom data for this submission. Length can be up to 50 characters.
+        "schedule_date" => "", //Set this parameter in format "yyyy-mm-dd hh:mm:ss" UTC +0 to schedule your sending to a future datetime. Must be at least 20 minutes from now.
+        "expire_date" => "" //Set this parameter in format "yyyy-mm-dd hh:mm:ss" UTC +0 to force expiration of your SMS to a future datetime. Must be at least 30 minutes from now and schedule_date.
+      ]
+
+    ]]
+  );
+
+//Print message
+print_r($message);
+
+?>
+```
+
+### Get account balance
+
+```php
+<?php
+
+//Your account username and password
+$username = "";
+$password = "";
+
+$client = new MobiWeb\Rest\AsynchClient($username, $password);
+
+//Get account balance and print it
+echo $client->getBalance();
+
+?>
+```
+
+### Get account pricing
+
+```php
+<?php
+
+//Your account username and password
+$username = "";
+$password = "";
+
+$client = new MobiWeb\Rest\AsynchClient($username, $password);
+
+//Get account pricing and print it
+print_r($client->getPricing(MobiWeb\Rest\AsynchClient::SMS));
+
+?>
+```
+
+### Receive message status notifications and delivery reports
+
+Status notifications of messages processed and elivery reports are forwarded automatically, to the user system / platform. When a message is processed by our SMS API Platform, the status information is immediately forwarded to your specified DLR Callback URL (specified when setting up your Asynch SMS API Account) via a POST request.
+
+```php
+<?
+
+//For information about receiving message status notifications and delivery reports please visit https://api.solutions4mobiles.com/asynchronous-sms-api.html#receive_status_notifications
+
+//Get request
+$inputJSON = file_get_contents('php://input');
+
+//convert JSON into array
+$input= json_decode( $inputJSON, TRUE );
+
+//print data
+print_r($input);
+
+//Return successful http code
+header('HTTP/1.1 200 OK', true, 200);
+// or error
+// header('HTTP/1.1 500 Internal Server Error', true, 500);
+
+?>
+```
+
 ## Getting help
 
 If you need help installing or using the library, please [contact us][MobiWebSupportCenter].
@@ -456,5 +613,6 @@ If you've instead found a bug in the library or would like new features added, g
 
 [apidocumentation]: https://api.solutions4mobiles.com/sms-api.html
 [apiaccount]: https://www.solutions4mobiles.com/product/sms-messaging
+[smppaccount]: mailto:sales@solutions4mobiles.com?subject=Asynchronous+SMS+API+Test+Account+Request&amp;body=Dear+Team,+please+provide+me+with+a+test+account+for+the+Asynchronous+SMS+API.
 [webpanel]: https://sms.solutions4mobiles.com
 [MobiWebSupportCenter]: https://www.solutions4mobiles.com/support
