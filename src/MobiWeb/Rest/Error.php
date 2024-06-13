@@ -23,10 +23,7 @@ class Error {
 
     public function print(){
 
-        echo "Error - HTTP: " . $this->status_code . " " . $this->status_message . " - API Error: " . print_r($this->errors, 1);
-        return true;
+        return "Error - HTTP: " . $this->status_code . " " . $this->status_message . " - API Error: " . print_r($this->errors, 1);
     }
 
 }
-
-?>

@@ -22,7 +22,6 @@ class Message {
         $access_token = $auth->getAccessToken();
         if(!$access_token){
             throw new \Exception("Cannot retrieve Access Token");
-            return false;
         }
 
         $endpoint = $auth->getEndPoint();
@@ -59,7 +58,7 @@ class Message {
 
         if(count($errors) > 0){
             $apiError = new APIError($executedRequest->response->body->status_code, $executedRequest->response->body->status_message, $errors);
-            $apiError->print();
+            throw new \Exception($apiError->print());
 
         }
 

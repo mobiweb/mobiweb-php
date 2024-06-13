@@ -13,13 +13,13 @@ class AsynchClient {
     const SMS = "sms";
 
 
-    public function __construct(string $username = null, string $password = null){
+    public function __construct(string $username = null, string $password = null, string $apiEndpoint = self::API_ENDPOINT){
 
         if (!$username || !$password) {
             throw new \Exception("Username and Password are required to create a Client");
         }
 
-        $this->auth = new Auth($username,$password,AsynchClient::API_ENDPOINT);
+        $this->auth = new Auth($username,$password,$apiEndpoint);
         if(!$this->auth->authenticate()){
             throw new \Exception("Authentication failed");
         }
@@ -49,5 +49,3 @@ class AsynchClient {
     }
 
 }
-
-?>

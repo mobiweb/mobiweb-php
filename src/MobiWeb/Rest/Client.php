@@ -3,27 +3,27 @@
 namespace MobiWeb\Rest;
 
 use MobiWeb\Rest\Authentication as Auth;
-use MobiWeb\Rest\Message;
-use MobiWeb\Rest\HLR;
-use MobiWeb\Rest\OTP;
 use MobiWeb\Rest\Utility as Util;
 
 class Client {
 
     protected $auth;
-    const API_ENDPOINT = "https://sms.solutions4mobiles.com/apis"; 
+    private $apiEndpoint;
+    const API_ENDPOINT_DEFAULT = "https://sms.solutions4mobiles.com/apis";
     const HLR = "hlr"; 
     const SMS = "sms";
     const OTP = "otp";
 
 
-    public function __construct(string $username = null, string $password = null){
+    public function __construct(string $username = null, string $password = null, string $apiEndpoint = self::API_ENDPOINT_DEFAULT){
 
         if (!$username || !$password) {
             throw new \Exception("Username and Password are required to create a Client");
         }
 
-        $this->auth = new Auth($username,$password,Client::API_ENDPOINT);
+        $this->apiEndpoint = $apiEndpoint;
+
+        $this->auth = new Auth($username,$password,$apiEndpoint);
         if(!$this->auth->authenticate()){
             throw new \Exception("Authentication failed");
         }
@@ -46,7 +46,7 @@ class Client {
             throw new \Exception("Mobile number is required to generate an OTP");
         }
 
-        return OTP::generate($this->auth, $mobile, $sender, $message, $validity);
+        return OTP::generate($this->auth, $mobile, $sender, $message, $validity, $this->apiEndpoint);
 
     }
 
@@ -56,7 +56,7 @@ class Client {
             throw new \Exception("Mobile number, OTP pin and OTP ID is required to validate an OTP");
         }
 
-        return OTP::validate($this->auth, $id, $mobile, $pin);
+        return OTP::validate($this->auth, $id, $mobile, $pin, $this->apiEndpoint);
 
     }
 
@@ -66,7 +66,7 @@ class Client {
             throw new \Exception("Mobile number is required to make a HLR Lookup");
         }
 
-        return HLR::lookup($this->auth, $mobile);
+        return HLR::lookup($this->auth, $mobile, $this->apiEndpoint);
 
     }
 
@@ -83,5 +83,3 @@ class Client {
     }
 
 }
-
-?>

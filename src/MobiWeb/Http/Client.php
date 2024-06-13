@@ -8,12 +8,6 @@ class Client {
     const POST = "POST";
     const HTTP_OK = "200";
     const HTTP_CREATED = "201";
-    const HTTP_BAD = "400";
-    const HTTP_UNAUTH = "401";
-    const HTTP_NOTFOUND = "404";
-    const HTTP_UNPROCESS = "422";
-    const HTTP_INTERNALERROR = "500";
-
 
     protected $options = [
         CURLOPT_HEADER => true,
@@ -31,10 +25,10 @@ class Client {
     public function request(string $url = null, string $method = null, array $headers = array(), $data = null): object{
 
         if(!$url){
-            throw new \Exception("Invalid URL: ". $url);
+            throw new \InvalidArgumentException("Invalid URL: ". $url);
         }
         if(!$method){
-            throw new \Exception("Invalid Method: ". $method);
+            throw new \InvalidArgumentException("Invalid Method: ". $method);
         }
 
         switch (strtoupper(trim($method))) {
@@ -47,7 +41,6 @@ class Client {
                 break;
             default:
                 throw new \Exception("Unsupported HTTP Method: ". $method);
-                break;
         }
 
         $options[CURLOPT_URL] = $url;
@@ -95,11 +88,11 @@ class Client {
     protected static function getResponseHeaders(string $response = null, string $headerSize = null): array{
 
         if(!$response){
-            throw new \Exception("Invalid response");
+            throw new \InvalidArgumentException("Invalid response");
         }
 
         if(!$headerSize){
-            throw new \Exception("Invalid response headers");
+            throw new \InvalidArgumentException("Invalid response headers");
         }
 
         $header = substr($response, 0, $headerSize);
@@ -137,5 +130,3 @@ class Client {
     }
 
 }
-
-?>
