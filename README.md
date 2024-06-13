@@ -452,6 +452,9 @@ print_r($client->getPricing(MobiWeb\Rest\Client::OTP));
 ```
 
 ### Asynchronous SMS API
+### Asynchronous SMS Flow
+To achieve better performance, messages you send With MobiWeb Asynchronous SMS API are validated and accepted instantly, but processed asynchronously. Once your messages are processed and submitted you will receive Status Notifications regarding the their status. Message Status Notifications are forwarded automatically, to your system / platform. When a message is processed by our SMS API Platform, the status information is immediately forwarded to your specified DLR Callback URL via a POST request (Status Notification Forwarding). After the messages are delivered or have reached their final status, our SMS API Platform immediately forwards the associated Delivery Reports to your specified DLR Callback URL via a POST request (DLR Forwarding).
+
 ### Send a single SMS
 
 ```php
@@ -605,6 +608,16 @@ header('HTTP/1.1 200 OK', true, 200);
 ?>
 ```
 
+### Matching message status notifications and delivery reports with messages
+
+Status notifications and delivery reports POST requests transmit the ```message id```, ```reference_code```, ```recipient phone``` and ```message status```.
+
+Due to the asynchronous nature of the SMPP API, message id is not available when you submit a message for processing.
+
+To match and cross-check messages submitted with their status notifications and delivery reports, please set ```reference_code``` when submitting messages and store it, so you can cross-check and match when you receive a notification and delivery report.
+
+Alternatively, if you are not sending multiple messages to the same mobile numbers, you can use the ```recipient number``` to match reports with messages.
+
 ## Getting help
 
 If you need help installing or using the library, please [contact us][MobiWebSupportCenter].
@@ -613,6 +626,6 @@ If you've instead found a bug in the library or would like new features added, g
 
 [apidocumentation]: https://api.solutions4mobiles.com/sms-api.html
 [apiaccount]: https://www.solutions4mobiles.com/product/sms-messaging
-[smppaccount]: mailto:sales@solutions4mobiles.com?subject=Asynchronous+SMS+API+Test+Account+Request&amp;body=Dear+Team,+please+provide+me+with+a+test+account+for+the+Asynchronous+SMS+API.
+[smppaccount]: mailto:sales@solutions4mobiles.com?subject=Asynchronous SMS API Test Account Request&amp;body=Dear Team, please provide me with a test account for the Asynchronous SMS API.
 [webpanel]: https://sms.solutions4mobiles.com
 [MobiWebSupportCenter]: https://www.solutions4mobiles.com/support
