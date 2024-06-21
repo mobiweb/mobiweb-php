@@ -464,7 +464,12 @@ To achieve better performance, messages you send With MobiWeb Asynchronous SMS A
 $username = "";
 $password = "";
 
-$client = new MobiWeb\Rest\AsynchClient($username, $password);
+//Endpoint Options:
+//  Client::SMPP_API_OTP_ENDPOINT - Asynchronous SMS API (SMS) - For (one-time pins) OTP & Notification messages
+//  Client::SMPP_API_MRK_ENDPOINT - Asynchronous SMS API (SMS) - For marketing messages
+$endpoint = MobiWeb\Rest\Client::SMPP_API_OTP_ENDPOINT;
+
+$client = new MobiWeb\Rest\Client($username, $password, $endpoint);
 
 //Submit message
 $message = $client->broadcast(
@@ -491,7 +496,12 @@ print_r($message);
 $username = "";
 $password = "";
 
-$client = new MobiWeb\Rest\AsynchClient($username, $password);
+//Endpoint Options:
+//  Client::SMPP_API_OTP_ENDPOINT - Asynchronous SMS API (SMS) - For (one-time pins) OTP & Notification messages
+//  Client::SMPP_API_MRK_ENDPOINT - Asynchronous SMS API (SMS) - For marketing messages
+$endpoint = MobiWeb\Rest\Client::SMPP_API_OTP_ENDPOINT;
+
+$client = new MobiWeb\Rest\Client($username, $password, $endpoint);
 
 $message = $client->broadcast(
     [[
@@ -523,7 +533,12 @@ print_r($message);
 $username = "";
 $password = "";
 
-$client = new MobiWeb\Rest\AsynchClient($username, $password);
+//Endpoint Options:
+//  Client::SMPP_API_OTP_ENDPOINT - Asynchronous SMS API (SMS) - For (one-time pins) OTP & Notification messages
+//  Client::SMPP_API_MRK_ENDPOINT - Asynchronous SMS API (SMS) - For marketing messages
+$endpoint = MobiWeb\Rest\Client::SMPP_API_OTP_ENDPOINT;
+
+$client = new MobiWeb\Rest\Client($username, $password, $endpoint);
 
 $message = $client->broadcast(
     [[
@@ -557,7 +572,12 @@ print_r($message);
 $username = "";
 $password = "";
 
-$client = new MobiWeb\Rest\AsynchClient($username, $password);
+//Endpoint Options:
+//  Client::SMPP_API_OTP_ENDPOINT - Asynchronous SMS API (SMS) - For (one-time pins) OTP & Notification messages
+//  Client::SMPP_API_MRK_ENDPOINT - Asynchronous SMS API (SMS) - For marketing messages
+$endpoint = MobiWeb\Rest\Client::SMPP_API_OTP_ENDPOINT;
+
+$client = new MobiWeb\Rest\Client($username, $password, $endpoint);
 
 //Get account balance and print it
 echo $client->getBalance();
@@ -574,10 +594,15 @@ echo $client->getBalance();
 $username = "";
 $password = "";
 
-$client = new MobiWeb\Rest\AsynchClient($username, $password);
+//Endpoint Options:
+//  Client::SMPP_API_OTP_ENDPOINT - Asynchronous SMS API (SMS) - For (one-time pins) OTP & Notification messages
+//  Client::SMPP_API_MRK_ENDPOINT - Asynchronous SMS API (SMS) - For marketing messages
+$endpoint = MobiWeb\Rest\Client::SMPP_API_OTP_ENDPOINT;
+
+$client = new MobiWeb\Rest\Client($username, $password, $endpoint);
 
 //Get account pricing and print it
-print_r($client->getPricing(MobiWeb\Rest\AsynchClient::SMS));
+print_r($client->getPricing(MobiWeb\Rest\Client::SMS));
 
 ?>
 ```

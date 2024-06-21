@@ -28,7 +28,6 @@ class Utility {
         $access_token = $auth->getAccessToken();
         if(!$access_token){
             throw new \Exception("Cannot retrieve Access Token");
-            return false;
         }
 
         $endpoint = $auth->getEndPoint();
@@ -41,7 +40,6 @@ class Utility {
         if($executedRequest->response->body->status_code != HttpClient::HTTP_OK){
             $apiError = new APIError($executedRequest->response->body->status_code, $executedRequest->response->body->status_message, $executedRequest->response->body->errors);
             throw new \Exception($apiError->print());
-            return false;
         }
 
         return floatval($executedRequest->response->body->payload->balance);
@@ -57,7 +55,6 @@ class Utility {
         $access_token = $auth->getAccessToken();
         if(!$access_token){
             throw new \Exception("Cannot retrieve Access Token");
-            return false;
         }
 
         $endpoint = $auth->getEndPoint();
@@ -83,7 +80,6 @@ class Utility {
         if($executedRequest->response->body->status_code != HttpClient::HTTP_OK){
             $apiError = new APIError($executedRequest->response->body->status_code, $executedRequest->response->body->status_message, $executedRequest->response->body->errors);
             throw new \Exception($apiError->print());
-            return false;
         }
 
         $currency = $executedRequest->response->body->payload->currency->symbol;
@@ -106,5 +102,3 @@ class Utility {
     }
 
 }
-
-?>

@@ -22,7 +22,6 @@ class HLR {
         $access_token = $auth->getAccessToken();
         if(!$access_token){
             throw new \Exception("Cannot retrieve Access Token");
-            return false;
         }
 
         $http = new HttpClient();
@@ -35,7 +34,6 @@ class HLR {
         if($executedRequest->response->body->status_code != HttpClient::HTTP_OK){
             $apiError = new APIError($executedRequest->response->body->status_code, $executedRequest->response->body->status_message, $executedRequest->response->body->payload->error);
             throw new \Exception($apiError->print());
-            return false;
         }
 
         return array($executedRequest->response->body->payload);

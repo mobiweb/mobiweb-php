@@ -2,6 +2,8 @@
 
 namespace MobiWeb\Http;
 
+use \stdClass;
+
 class Client {
 
     const GET = "GET";
@@ -28,7 +30,7 @@ class Client {
 
     }
 
-    public function request(string $url = null, string $method = null, array $headers = array(), $data = null): object{
+    public function request(string $url = null, string $method = null, array $headers = array(), $data = null): stdClass{
 
         if(!$url){
             throw new \Exception("Invalid URL: ". $url);
@@ -47,7 +49,6 @@ class Client {
                 break;
             default:
                 throw new \Exception("Unsupported HTTP Method: ". $method);
-                break;
         }
 
         $options[CURLOPT_URL] = $url;
@@ -137,5 +138,3 @@ class Client {
     }
 
 }
-
-?>

@@ -48,7 +48,6 @@ class Authentication {
         if($executedRequest->response->body->status_code != HttpClient::HTTP_OK){
             $apiError = new APIError($executedRequest->response->body->status_code, $executedRequest->response->body->status_message, $executedRequest->response->body->errors);
             throw new \Exception($apiError->print());
-            return false;
         }
         $this->timestamp = new \DateTime();
         $this->access_token = $executedRequest->response->body->payload->access_token;
@@ -62,7 +61,6 @@ class Authentication {
 
         if(!$this->refresh_token){
             throw new \Exception("Refresh_token is required to refresh connection");
-            return false;
         }
 
         $http = new HttpClient();
@@ -75,7 +73,6 @@ class Authentication {
         if($executedRequest->response->body->status_code != HttpClient::HTTP_OK){
             $apiError = new APIError($executedRequest->response->body->status_code, $executedRequest->response->body->status_message, $executedRequest->response->body->errors);
             throw new \Exception($apiError->print());
-            return false;
         }
         $this->timestamp = new \DateTime();
         $this->access_token = $executedRequest->response->body->payload->access_token;
@@ -110,7 +107,6 @@ class Authentication {
         if(($interval->s < Authentication::VALIDITY_PERIOD) && ($interval->s >= (Authentication::VALIDITY_PERIOD - Authentication::VALIDITY_THRESHOLD))){
             if(!$this->refresh()){
                 throw new \Exception("Refresh connection failed");
-                return false;
             }
         }
 
@@ -120,5 +116,3 @@ class Authentication {
     }
 
 }
-
-?>

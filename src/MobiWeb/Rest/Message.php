@@ -22,7 +22,6 @@ class Message {
         $access_token = $auth->getAccessToken();
         if(!$access_token){
             throw new \Exception("Cannot retrieve Access Token");
-            return false;
         }
 
         $endpoint = $auth->getEndPoint();

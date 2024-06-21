@@ -11,22 +11,27 @@ use MobiWeb\Rest\Utility as Util;
 class Client {
 
     protected $auth;
-    const API_ENDPOINT = "https://sms.solutions4mobiles.com/apis"; 
+    protected $endpoint;
+    const API_ENDPOINT = "https://sms.solutions4mobiles.com/apis";
+    const SMPP_API_OTP_ENDPOINT = "https://apix.solutions4mobiles.com/apis";
+    const SMPP_API_MRK_ENDPOINT = "https://apix2.solutions4mobiles.com/apis";
     const HLR = "hlr"; 
     const SMS = "sms";
     const OTP = "otp";
 
 
-    public function __construct(string $username = null, string $password = null){
+    public function __construct(string $username = null, string $password = null, string $endpoint = Client::API_ENDPOINT){
 
         if (!$username || !$password) {
             throw new \Exception("Username and Password are required to create a Client");
         }
 
-        $this->auth = new Auth($username,$password,Client::API_ENDPOINT);
+        $this->auth = new Auth($username,$password,$endpoint);
         if(!$this->auth->authenticate()){
             throw new \Exception("Authentication failed");
         }
+
+        $this->endpoint = $endpoint;
 
     }
 
@@ -46,6 +51,10 @@ class Client {
             throw new \Exception("Mobile number is required to generate an OTP");
         }
 
+        if($this->endpoint != Client::API_ENDPOINT) {
+            throw new \Exception("Unsupported service for selected endpoint");
+        }
+
         return OTP::generate($this->auth, $mobile, $sender, $message, $validity);
 
     }
@@ -56,6 +65,10 @@ class Client {
             throw new \Exception("Mobile number, OTP pin and OTP ID is required to validate an OTP");
         }
 
+        if($this->endpoint != Client::API_ENDPOINT) {
+            throw new \Exception("Unsupported service for selected endpoint");
+        }
+
         return OTP::validate($this->auth, $id, $mobile, $pin);
 
     }
@@ -64,6 +77,10 @@ class Client {
 
         if (!$mobile) {
             throw new \Exception("Mobile number is required to make a HLR Lookup");
+        }
+
+        if($this->endpoint != Client::API_ENDPOINT) {
+            throw new \Exception("Unsupported service for selected endpoint");
         }
 
         return HLR::lookup($this->auth, $mobile);
@@ -78,10 +95,12 @@ class Client {
 
     public function getPricing(string $service=Client::SMS): array{
 
+        if($this->endpoint != Client::API_ENDPOINT && $service != Client::SMS) {
+            throw new \Exception("Unsupported service for selected endpoint");
+        }
+
         return Util::getPricing($this->auth,$service);
 
     }
 
 }
-
-?>

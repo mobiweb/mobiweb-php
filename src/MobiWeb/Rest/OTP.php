@@ -13,7 +13,7 @@ class OTP {
     const VALIDATE_ENDPOINT = "/otp/v3/validate/";
     const OTP_METHOD = "POST";
 
-    public static function generate(Auth $auth = null, string $mobile, string $sender = "SECUREPIN", string $message = "Please do not share your password pin. Your password pin is: [PIN]", int $validity = 600){
+    public static function generate(Auth $auth = null, string $mobile, string $sender = "SECUREPIN", string $message = "Please do not share your password pin. Your password pin is: [PIN]", int $validity = 600): array{
 
         if (!$auth) {
             throw new \Exception("Cannot generate OTP without authentication");
@@ -22,7 +22,6 @@ class OTP {
         $access_token = $auth->getAccessToken();
         if(!$access_token){
             throw new \Exception("Cannot retrieve Access Token");
-            return false;
         }
 
         $http = new HttpClient();
@@ -39,7 +38,6 @@ class OTP {
         if($executedRequest->response->body->status_code != HttpClient::HTTP_CREATED){
             $apiError = new APIError($executedRequest->response->body->status_code, $executedRequest->response->body->status_message, $executedRequest->response->body->errors);
             throw new \Exception($apiError->print());
-            return false;
         }
 
         return array($executedRequest->response->body->payload);
@@ -54,7 +52,6 @@ class OTP {
         $access_token = $auth->getAccessToken();
         if(!$access_token){
             throw new \Exception("Cannot retrieve Access Token");
-            return false;
         }
 
         $http = new HttpClient();
@@ -69,7 +66,6 @@ class OTP {
         if($executedRequest->response->body->status_code != HttpClient::HTTP_OK){
             $apiError = new APIError($executedRequest->response->body->status_code, $executedRequest->response->body->status_message, $executedRequest->response->body->errors);
             throw new \Exception($apiError->print());
-            return false;
         }
 
         return true;
