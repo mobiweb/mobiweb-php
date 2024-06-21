@@ -13,8 +13,8 @@ class Client {
     protected $auth;
     protected $endpoint;
     const API_ENDPOINT = "https://sms.solutions4mobiles.com/apis";
-    const SMPP_API_OTP_ENDPOINT = "https://apix.solutions4mobiles.com/apis";
-    const SMPP_API_MRK_ENDPOINT = "https://apix2.solutions4mobiles.com/apis";
+    const SMPP_API_1_ENDPOINT = "https://apix.solutions4mobiles.com/apis";
+    const SMPP_API_2_ENDPOINT = "https://apix2.solutions4mobiles.com/apis";
     const HLR = "hlr"; 
     const SMS = "sms";
     const OTP = "otp";

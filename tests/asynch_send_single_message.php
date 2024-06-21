@@ -11,9 +11,9 @@ $password = "";
 
 //Endpoint Options:
 //  APIClient::API_ENDPOINT - REST API (SMS, OTP, HLR) - Default
-//  APIClient::SMPP_API_OTP_ENDPOINT - Asynchronous SMS API (SMS) - For (one-time pins) OTP & Notification messages
-//  APIClient::SMPP_API_MRK_ENDPOINT - Asynchronous SMS API (SMS) - For marketing messages
-$endpoint = APIClient::SMPP_API_OTP_ENDPOINT;
+//  APIClient::SMPP_API_1_ENDPOINT - Asynchronous SMS API (SMS)
+//  APIClient::SMPP_API_2_ENDPOINT - Asynchronous SMS API (SMS) - Alternative
+$endpoint = APIClient::SMPP_API_1_ENDPOINT;
 
 $client = new APIClient($username, $password, $endpoint);
 

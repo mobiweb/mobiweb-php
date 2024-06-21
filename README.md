@@ -465,9 +465,10 @@ $username = "";
 $password = "";
 
 //Endpoint Options:
-//  Client::SMPP_API_OTP_ENDPOINT - Asynchronous SMS API (SMS) - For (one-time pins) OTP & Notification messages
-//  Client::SMPP_API_MRK_ENDPOINT - Asynchronous SMS API (SMS) - For marketing messages
-$endpoint = MobiWeb\Rest\Client::SMPP_API_OTP_ENDPOINT;
+//  APIClient::API_ENDPOINT - REST API (SMS, OTP, HLR) - Default
+//  APIClient::SMPP_API_1_ENDPOINT - Asynchronous SMS API (SMS)
+//  APIClient::SMPP_API_2_ENDPOINT - Asynchronous SMS API (SMS) - Alternative
+$endpoint = MobiWeb\Rest\Client::SMPP_API_1_ENDPOINT;
 
 $client = new MobiWeb\Rest\Client($username, $password, $endpoint);
 
@@ -497,9 +498,10 @@ $username = "";
 $password = "";
 
 //Endpoint Options:
-//  Client::SMPP_API_OTP_ENDPOINT - Asynchronous SMS API (SMS) - For (one-time pins) OTP & Notification messages
-//  Client::SMPP_API_MRK_ENDPOINT - Asynchronous SMS API (SMS) - For marketing messages
-$endpoint = MobiWeb\Rest\Client::SMPP_API_OTP_ENDPOINT;
+//  APIClient::API_ENDPOINT - REST API (SMS, OTP, HLR) - Default
+//  APIClient::SMPP_API_1_ENDPOINT - Asynchronous SMS API (SMS)
+//  APIClient::SMPP_API_2_ENDPOINT - Asynchronous SMS API (SMS) - Alternative
+$endpoint = MobiWeb\Rest\Client::SMPP_API_1_ENDPOINT;
 
 $client = new MobiWeb\Rest\Client($username, $password, $endpoint);
 
@@ -534,9 +536,10 @@ $username = "";
 $password = "";
 
 //Endpoint Options:
-//  Client::SMPP_API_OTP_ENDPOINT - Asynchronous SMS API (SMS) - For (one-time pins) OTP & Notification messages
-//  Client::SMPP_API_MRK_ENDPOINT - Asynchronous SMS API (SMS) - For marketing messages
-$endpoint = MobiWeb\Rest\Client::SMPP_API_OTP_ENDPOINT;
+//  APIClient::API_ENDPOINT - REST API (SMS, OTP, HLR) - Default
+//  APIClient::SMPP_API_1_ENDPOINT - Asynchronous SMS API (SMS)
+//  APIClient::SMPP_API_2_ENDPOINT - Asynchronous SMS API (SMS) - Alternative
+$endpoint = MobiWeb\Rest\Client::SMPP_API_1_ENDPOINT;
 
 $client = new MobiWeb\Rest\Client($username, $password, $endpoint);
 
@@ -573,9 +576,10 @@ $username = "";
 $password = "";
 
 //Endpoint Options:
-//  Client::SMPP_API_OTP_ENDPOINT - Asynchronous SMS API (SMS) - For (one-time pins) OTP & Notification messages
-//  Client::SMPP_API_MRK_ENDPOINT - Asynchronous SMS API (SMS) - For marketing messages
-$endpoint = MobiWeb\Rest\Client::SMPP_API_OTP_ENDPOINT;
+//  APIClient::API_ENDPOINT - REST API (SMS, OTP, HLR) - Default
+//  APIClient::SMPP_API_1_ENDPOINT - Asynchronous SMS API (SMS)
+//  APIClient::SMPP_API_2_ENDPOINT - Asynchronous SMS API (SMS) - Alternative
+$endpoint = MobiWeb\Rest\Client::SMPP_API_1_ENDPOINT;
 
 $client = new MobiWeb\Rest\Client($username, $password, $endpoint);
 
