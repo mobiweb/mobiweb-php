@@ -20,13 +20,13 @@ class Client {
     const OTP = "otp";
 
 
-    public function __construct(string $username = null, string $password = null, string $endpoint = Client::API_ENDPOINT){
+    public function __construct(string $username = null, string $password = null, string $endpoint = Client::API_ENDPOINT, bool $preserve = false){
 
         if (!$username || !$password) {
             throw new \Exception("Username and Password are required to create a Client");
         }
 
-        $this->auth = new Auth($username,$password,$endpoint);
+        $this->auth = new Auth($username,$password,$endpoint,$preserve);
         if(!$this->auth->authenticate()){
             throw new \Exception("Authentication failed");
         }

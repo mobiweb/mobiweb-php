@@ -22,9 +22,10 @@ class Authentication {
     protected $refresh_token;
     protected $timestamp;
     protected $endpoint;
+    protected $preserve;
 
 
-    public function __construct(string $username = null, string $password = null, string $endpoint){
+    public function __construct(string $username = null, string $password = null, string $endpoint, bool $preserve){
 
         if (!$username || !$password) {
             throw new \Exception("Username and Password are required to authenticate");
@@ -33,6 +34,7 @@ class Authentication {
         $this->username=$username;
         $this->password=$password;
         $this->endpoint=$endpoint;
+        $this->preserve=$preserve;
     }
 
     public function authenticate() :bool{
@@ -43,6 +45,7 @@ class Authentication {
         $body->username = $this->username;
         $body->password = $this->password;
         $body->type = Authentication::TYPE_ACCESS;
+        $body->preserve = $this->preserve;
         $executedRequest=$http->request($this->endpoint . Authentication::AUTH_ENDPOINT, Authentication::AUTH_METHOD, $headers, $body);
 
         if($executedRequest->response->body->status_code != HttpClient::HTTP_OK){
