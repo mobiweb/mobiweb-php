@@ -9,6 +9,14 @@
 
 A PHP library for interfacing with MobiWeb RESTful SMS, HLR and OTP APIs.
 
+## Contents
+[Installation](#installation)
+[Test Account](#api-account)
+[SMS API](#sms-api)
+[HLR API](#hlr-api-api)
+[Asynch SMS API](#asynchronous-sms-api)
+[Help](#getting-help)
+
 ## Documentation
 
 MobiWeb RESTful APIs can be found [here][apidocumentation].
@@ -691,6 +699,6 @@ If you've instead found a bug in the library or would like new features added, g
 
 [apidocumentation]: https://api.solutions4mobiles.com/sms-api.html
 [apiaccount]: https://www.solutions4mobiles.com/product/sms-messaging
-[smppaccount]: mailto:sales@solutions4mobiles.com?subject=Asynchronous SMS API Test Account Request&amp;body=Dear Team, please provide me with a test account for the Asynchronous SMS API.
 [webpanel]: https://sms.solutions4mobiles.com
 [MobiWebSupportCenter]: https://www.solutions4mobiles.com/support
+[smppaccount]: mailto:sales@solutions4mobiles.com?subject=Asynchronous%20SMS%20API%20Test%20Account%20Request&amp;body=Dear%20Team,%20please%20provide%20me%20with%20a%20test%20account%20for%20the%20Asynchronous%20SMS%20API.
