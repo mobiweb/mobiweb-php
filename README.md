@@ -10,12 +10,12 @@
 A PHP library for interfacing with MobiWeb RESTful SMS, HLR and OTP APIs.
 
 ## Contents
-[Installation](#installation)
-[Test Account](#api-account)
-[SMS API](#sms-api)
-[HLR API](#hlr-api-api)
-[Asynch SMS API](#asynchronous-sms-api)
-[Help](#getting-help)
+* [Installation](#installation)
+* [Test Account](#api-account)
+* [SMS API](#sms-api)
+* [HLR API](#hlr-api-api)
+* [Asynch SMS API](#asynchronous-sms-api)
+* [Help](#getting-help)
 
 ## Documentation
 
