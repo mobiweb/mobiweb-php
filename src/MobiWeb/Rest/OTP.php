@@ -13,7 +13,7 @@ class OTP {
     const VALIDATE_ENDPOINT = "/otp/v3/validate/";
     const OTP_METHOD = "POST";
 
-    public static function generate(Auth $auth = null, string $mobile, string $sender = "SECUREPIN", string $message = "Please do not share your password pin. Your password pin is: [PIN]", int $validity = 600): array{
+    public static function generate(Auth $auth = null, string $mobile, string $sender = "SECUREPIN", string $message = "Please do not share your password pin. Your password pin is: [PIN]", int $validity = 600, string $reference_code = ""): array{
 
         if (!$auth) {
             throw new \Exception("Cannot generate OTP without authentication");
@@ -32,6 +32,7 @@ class OTP {
         $body->sender = $sender;
         $body->message = $message;
         $body->validity = $validity;
+        $body->reference = $reference_code;
 
         $executedRequest=$http->request(APIClient::API_ENDPOINT . OTP::GENERATE_ENDPOINT, OTP::OTP_METHOD, $headers, $body);
 
