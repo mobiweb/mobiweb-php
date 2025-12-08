@@ -757,6 +757,52 @@ echo $otp;
 ?>
 ```
 
+### Get account balance
+
+```php
+<?php
+
+//Your account username and password
+$username = "";
+$password = "";
+
+//Endpoint Options:
+//  APIClient::API_ENDPOINT - REST API (SMS, OTP, HLR) - Default
+//  APIClient::SMPP_API_1_ENDPOINT - Asynchronous SMS API (SMS), Asynchronous OTP API
+//  APIClient::SMPP_API_2_ENDPOINT - Asynchronous SMS API (SMS), Asynchronous OTP API - Alternative
+$endpoint = MobiWeb\Rest\Client::SMPP_API_1_ENDPOINT;
+
+$client = new MobiWeb\Rest\Client($username, $password, $endpoint);
+
+//Get account balance and print it
+echo $client->getBalance();
+
+?>
+```
+
+### Get account pricing
+
+```php
+<?php
+
+//Your account username and password
+$username = "";
+$password = "";
+
+//Endpoint Options:
+//  APIClient::API_ENDPOINT - REST API (SMS, OTP, HLR) - Default
+//  APIClient::SMPP_API_1_ENDPOINT - Asynchronous SMS API (SMS), Asynchronous OTP API
+//  APIClient::SMPP_API_2_ENDPOINT - Asynchronous SMS API (SMS), Asynchronous OTP API - Alternative
+$endpoint = MobiWeb\Rest\Client::SMPP_API_1_ENDPOINT;
+
+$client = new MobiWeb\Rest\Client($username, $password, $endpoint);
+
+//Get account pricing and print it
+print_r($client->getPricing(MobiWeb\Rest\Client::SMS));
+
+?>
+```
+
 ## Getting help
 
 If you need help installing or using the library, please [contact us][MobiWebSupportCenter].
