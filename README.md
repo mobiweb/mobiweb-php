@@ -15,6 +15,7 @@ A PHP library for interfacing with MobiWeb RESTful SMS, HLR and OTP APIs.
 * [SMS API](#sms-api)
 * [HLR API](#hlr-api-api)
 * [Asynch SMS API](#asynchronous-sms-api)
+* [Asynch OTP API](#asynchronous-otp-api)
 * [Help](#getting-help)
 
 ## Documentation
@@ -474,8 +475,8 @@ $password = "";
 
 //Endpoint Options:
 //  APIClient::API_ENDPOINT - REST API (SMS, OTP, HLR) - Default
-//  APIClient::SMPP_API_1_ENDPOINT - Asynchronous SMS API (SMS)
-//  APIClient::SMPP_API_2_ENDPOINT - Asynchronous SMS API (SMS) - Alternative
+//  APIClient::SMPP_API_1_ENDPOINT - Asynchronous SMS API (SMS), Asynchronous OTP API
+//  APIClient::SMPP_API_2_ENDPOINT - Asynchronous SMS API (SMS), Asynchronous OTP API - Alternative
 $endpoint = MobiWeb\Rest\Client::SMPP_API_1_ENDPOINT;
 
 $client = new MobiWeb\Rest\Client($username, $password, $endpoint);
@@ -510,8 +511,8 @@ $preserve=true;
 
 //Endpoint Options:
 //  APIClient::API_ENDPOINT - REST API (SMS, OTP, HLR) - Default
-//  APIClient::SMPP_API_1_ENDPOINT - Asynchronous SMS API (SMS)
-//  APIClient::SMPP_API_2_ENDPOINT - Asynchronous SMS API (SMS) - Alternative
+//  APIClient::SMPP_API_1_ENDPOINT - Asynchronous SMS API (SMS), Asynchronous OTP API
+//  APIClient::SMPP_API_2_ENDPOINT - Asynchronous SMS API (SMS), Asynchronous OTP API - Alternative
 $endpoint = MobiWeb\Rest\Client::SMPP_API_1_ENDPOINT;
 
 $client = new MobiWeb\Rest\Client($username, $password, $endpoint, $preserve);
@@ -543,8 +544,8 @@ $password = "";
 
 //Endpoint Options:
 //  APIClient::API_ENDPOINT - REST API (SMS, OTP, HLR) - Default
-//  APIClient::SMPP_API_1_ENDPOINT - Asynchronous SMS API (SMS)
-//  APIClient::SMPP_API_2_ENDPOINT - Asynchronous SMS API (SMS) - Alternative
+//  APIClient::SMPP_API_1_ENDPOINT - Asynchronous SMS API (SMS), Asynchronous OTP API
+//  APIClient::SMPP_API_2_ENDPOINT - Asynchronous SMS API (SMS), Asynchronous OTP API - Alternative
 $endpoint = MobiWeb\Rest\Client::SMPP_API_1_ENDPOINT;
 
 $client = new MobiWeb\Rest\Client($username, $password, $endpoint);
@@ -581,8 +582,8 @@ $password = "";
 
 //Endpoint Options:
 //  APIClient::API_ENDPOINT - REST API (SMS, OTP, HLR) - Default
-//  APIClient::SMPP_API_1_ENDPOINT - Asynchronous SMS API (SMS)
-//  APIClient::SMPP_API_2_ENDPOINT - Asynchronous SMS API (SMS) - Alternative
+//  APIClient::SMPP_API_1_ENDPOINT - Asynchronous SMS API (SMS), Asynchronous OTP API
+//  APIClient::SMPP_API_2_ENDPOINT - Asynchronous SMS API (SMS), Asynchronous OTP API - Alternative
 $endpoint = MobiWeb\Rest\Client::SMPP_API_1_ENDPOINT;
 
 $client = new MobiWeb\Rest\Client($username, $password, $endpoint);
@@ -621,8 +622,8 @@ $password = "";
 
 //Endpoint Options:
 //  APIClient::API_ENDPOINT - REST API (SMS, OTP, HLR) - Default
-//  APIClient::SMPP_API_1_ENDPOINT - Asynchronous SMS API (SMS)
-//  APIClient::SMPP_API_2_ENDPOINT - Asynchronous SMS API (SMS) - Alternative
+//  APIClient::SMPP_API_1_ENDPOINT - Asynchronous SMS API (SMS), Asynchronous OTP API
+//  APIClient::SMPP_API_2_ENDPOINT - Asynchronous SMS API (SMS), Asynchronous OTP API - Alternative
 $endpoint = MobiWeb\Rest\Client::SMPP_API_1_ENDPOINT;
 
 $client = new MobiWeb\Rest\Client($username, $password, $endpoint);
@@ -643,9 +644,10 @@ $username = "";
 $password = "";
 
 //Endpoint Options:
-//  Client::SMPP_API_OTP_ENDPOINT - Asynchronous SMS API (SMS) - For (one-time pins) OTP & Notification messages
-//  Client::SMPP_API_MRK_ENDPOINT - Asynchronous SMS API (SMS) - For marketing messages
-$endpoint = MobiWeb\Rest\Client::SMPP_API_OTP_ENDPOINT;
+//  APIClient::API_ENDPOINT - REST API (SMS, OTP, HLR) - Default
+//  APIClient::SMPP_API_1_ENDPOINT - Asynchronous SMS API (SMS), Asynchronous OTP API
+//  APIClient::SMPP_API_2_ENDPOINT - Asynchronous SMS API (SMS), Asynchronous OTP API - Alternative
+$endpoint = MobiWeb\Rest\Client::SMPP_API_1_ENDPOINT;
 
 $client = new MobiWeb\Rest\Client($username, $password, $endpoint);
 
@@ -690,6 +692,70 @@ Due to the asynchronous nature of the SMPP API, message id is not available when
 To match and cross-check messages submitted with their status notifications and delivery reports, please set ```reference_code``` when submitting messages and store it, so you can cross-check and match when you receive a notification and delivery report.
 
 Alternatively, if you are not sending multiple messages to the same mobile numbers, you can use the ```recipient number``` to match reports with messages.
+
+### Asynchronous OTP API
+### Generate and send OTP
+
+```php
+<?
+
+//Your account username and password
+$username = "";
+$password = "";
+
+//Endpoint Options:
+//  APIClient::API_ENDPOINT - REST API (SMS, OTP, HLR) - Default
+//  APIClient::SMPP_API_1_ENDPOINT - Asynchronous SMS API (SMS), Asynchronous OTP API
+//  APIClient::SMPP_API_2_ENDPOINT - Asynchronous SMS API (SMS), Asynchronous OTP API - Alternative
+$endpoint = APIClient::SMPP_API_1_ENDPOINT;
+
+$client = new APIClient($username, $password, $endpoint);
+
+//Generate OTP and send it via SMS to a mobile number
+$otp = $client->generate(
+  "44xxxxxxxxxx", //The mobile number in international E.164 format.
+  "SECUREPIN", //The sender that will be displayed in the OTP SMS. Can be composed of 2-11 alphanumeric characters (A-z,0-9, ,-,.) or 14 numeric characters (0-9). Special characters are not allowed.
+  "Please do not share your password pin. Your password pin is: [PIN]", //The text message of OTP SMS. Remember to put placeholder [PIN] in the message. If all characters in the message belong to the 3GPP GSM 7-bit GSM 03.38 ASCII character table, you can send up to 160 characters. If one or more characters in the message belong to the 16-bit Unicode / UCS-2 character table, because of the increased memory requirement for each character, you can send up to 70 characters. 
+  600, //The validity period of the pin in seconds. The default value is 600 seconds (10 minutes).
+  "8f3c1d7ab924e0fb6c52d9a41ef0837a" //Set this parameter to your preferred reference id / custom data for this submission. Length can be up to 50 characters.
+  );
+
+//Print the generate OTP result. Remember to store the mobile number and the OTP id for later use.
+print_r($otp);
+
+?>
+```
+### Validate OTP
+
+```php
+<?
+
+//Your account username and password
+$username = "";
+$password = "";
+
+$client = new MobiWeb\Rest\Client($username, $password);
+
+//Endpoint Options:
+//  APIClient::API_ENDPOINT - REST API (SMS, OTP, HLR) - Default
+//  APIClient::SMPP_API_1_ENDPOINT - Asynchronous SMS API (SMS), Asynchronous OTP API
+//  APIClient::SMPP_API_2_ENDPOINT - Asynchronous SMS API (SMS), Asynchronous OTP API - Alternative
+$endpoint = APIClient::SMPP_API_1_ENDPOINT;
+
+$client = new APIClient($username, $password, $endpoint);
+
+//Validate a previously generated OTP with the OTP ID. OTP is provided by the mobile number subscriber.
+$otp = $client->validate(
+  "8f3c1d7ab924e0fb6c52d9a41ef0837a", //The OTP ID returned by the generated OTP.
+  "44xxxxxxxxxx", //The mobile number of the subscriber in international E.164 format.
+  "265xxx", //The OTP provided by the mobile number subscriber. 
+);
+
+//Print the OTP validation attempt result. If result is TRUE, OTP is validated.
+echo $otp;
+
+?>
+```
 
 ## Getting help
 
