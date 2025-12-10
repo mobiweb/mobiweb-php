@@ -24,6 +24,8 @@ class OTP {
             throw new \Exception("Cannot retrieve Access Token");
         }
 
+        $endpoint = $auth->getEndPoint();
+
         $http = new HttpClient();
         $headers = array();
         $headers["Authorization"] = "Bearer " . $access_token;
@@ -34,7 +36,7 @@ class OTP {
         $body->validity = $validity;
         $body->reference = $reference_code;
 
-        $executedRequest=$http->request(APIClient::API_ENDPOINT . OTP::GENERATE_ENDPOINT, OTP::OTP_METHOD, $headers, $body);
+        $executedRequest=$http->request($endpoint .  OTP::GENERATE_ENDPOINT, OTP::OTP_METHOD, $headers, $body);
 
         if($executedRequest->response->body->status_code != HttpClient::HTTP_CREATED){
             $apiError = new APIError($executedRequest->response->body->status_code, $executedRequest->response->body->status_message, $executedRequest->response->body->errors);
@@ -55,6 +57,8 @@ class OTP {
             throw new \Exception("Cannot retrieve Access Token");
         }
 
+        $endpoint = $auth->getEndPoint();
+
         $http = new HttpClient();
         $headers = array();
         $headers["Authorization"] = "Bearer " . $access_token;
@@ -62,7 +66,7 @@ class OTP {
         $body->mobile = $mobile;
         $body->pin = $pin;
 
-        $executedRequest=$http->request(APIClient::API_ENDPOINT . OTP::VALIDATE_ENDPOINT . $id, OTP::OTP_METHOD, $headers, $body);
+        $executedRequest=$http->request($endpoint . OTP::VALIDATE_ENDPOINT . $id, OTP::OTP_METHOD, $headers, $body);
 
         if($executedRequest->response->body->status_code != HttpClient::HTTP_OK){
             $apiError = new APIError($executedRequest->response->body->status_code, $executedRequest->response->body->status_message, $executedRequest->response->body->errors);

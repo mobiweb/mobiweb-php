@@ -51,10 +51,6 @@ class Client {
             throw new \Exception("Mobile number is required to generate an OTP");
         }
 
-        if($this->endpoint != Client::API_ENDPOINT) {
-            throw new \Exception("Unsupported service for selected endpoint");
-        }
-
         return OTP::generate($this->auth, $mobile, $sender, $message, $validity);
 
     }
@@ -63,10 +59,6 @@ class Client {
 
         if (!$mobile || !$id || !$pin) {
             throw new \Exception("Mobile number, OTP pin and OTP ID is required to validate an OTP");
-        }
-
-        if($this->endpoint != Client::API_ENDPOINT) {
-            throw new \Exception("Unsupported service for selected endpoint");
         }
 
         return OTP::validate($this->auth, $id, $mobile, $pin);
